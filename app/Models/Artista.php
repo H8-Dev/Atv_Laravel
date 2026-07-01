@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Artista extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'nome',
+        'descricao',
+        'url_imagem',
+    ];
+
+    public function album(){
+
+        return $this->hasMany(Album::class);
+    }
+
+}
