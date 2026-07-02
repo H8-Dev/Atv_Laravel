@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\ArtistaController;
 use App\Models\Album;
 use App\Models\Jogo;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MusicaController;
 
 
 Route::get('/', function () {
@@ -30,3 +33,7 @@ Route::get('/create-test-album', function () {
     ]);
     return $album;
 });
+
+Route::resource('/musics', MusicaController::class);
+Route::resource('/albuns', AlbumController::class);
+Route::resource('/artistas', ArtistaController::class);
