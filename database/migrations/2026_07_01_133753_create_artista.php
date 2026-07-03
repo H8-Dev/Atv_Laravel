@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('artista', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('descricao');
-            $table->string('url_imagem')->nullable();
+            $table->string('foto_url')->nullable();
+            $table->date('data_origem');
+            $table->timestamp('create_at');
             
             $table->timestamps();
         });

@@ -10,9 +10,9 @@ class Artista extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nome',
-        'descricao',
-        'url_imagem',
+        'name',
+        'foto_url',
+        'data_origem',
     ];
 
     public function album(){

@@ -29,7 +29,15 @@ class ArtistaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'foto_url' => 'nullable|url', 
+            'data_origem' => 'required|integer|min:1900|max:' . (date('Y') + 1),
+        ]);
+
+        Artista::create($request->all());
+        return redirect()->route('artistas.index')->with('success','Artista criado com sucesso!');
+
     }
 
     /**
@@ -37,7 +45,8 @@ class ArtistaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $artista = Artista::with('albuns')->findOrFail($id);
+        return view('artista.show', compact('artista'));
     }
 
     /**
@@ -45,7 +54,8 @@ class ArtistaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $artista = Artista::findOrFail($id);
+        return view('artista.edit', compact('artista'));
     }
 
     /**
@@ -53,7 +63,14 @@ class ArtistaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $artista = Artista::findOrFail($id);
+        $artista->update([
+            "name"=> $request->name,
+            "foto_url"=> $request->foto_url,
+            "data_origem"=> $request->data_origem,
+        ]);
+
+        return redirect()->route("artistas.index")->with("success","Artista $artista->name atualizado com sucesso!");
     }
 
     /**
@@ -61,6 +78,9 @@ class ArtistaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $artista = Artista::findOrFail($id);
+        $artista->delete();
+
+        return view("artista.index");
     }
 }

@@ -15,7 +15,7 @@ class MusicaController extends Controller
     {
         $musicas = Musica::with('album')->get();
 
-        return view('musicas.index', compact('musicas'));
+        return view('musica.index', compact('musicas'));
     }
 
     /**
@@ -24,7 +24,7 @@ class MusicaController extends Controller
     public function create()
     {
         $album = Album::all();
-        return view('musicas.create', compact('album'));
+        return view('musica.create', compact('album'));
     }
 
     /**
@@ -34,6 +34,7 @@ class MusicaController extends Controller
     {
         $request->validate([
             'titulo' => 'required|string|max:255',
+            'artista'=> 'required|string|max:255',
             'album_id' => 'required|exists:album,id',
             'duracao' => 'required|string|max:10', 
         ]);
@@ -53,6 +54,28 @@ class MusicaController extends Controller
         $musica = Musica::findOrFail($id);
 
         return redirect()->route('album.show', $musica->album_id);
+    }
+
+    public function edit(string $id)
+    {
+        $musica = Musica::findOrFail($id);
+        return view("musica.edit", compact("music"));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Musica $music)
+    {
+        $music->update([
+            "name"=> $request->name,
+            "artist" => $request->artist,
+            "album" => $request->album,
+            "duration" => $request->duration,
+        ]);
+        return redirect()->
+            route("musica.index")->with("success","Musica $music->name atualizada com sucesso");
+
     }
 
     /**
