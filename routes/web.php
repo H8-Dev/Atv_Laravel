@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ArtistaController;
-use App\Models\Album;
-use App\Models\Jogo;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MusicaController;
 
